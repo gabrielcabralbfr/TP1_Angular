@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastrar Categoria</title>
+</head>
+
+<body data-ng-app="category">
+
+    <div class="container" data-ng-controller="categoryController as category">
+
+        <h1>{{ category.title }}</h1>
+        <label for="">Digite a categoria a ser incluída: </label>
+        <input type="text" data-ng-model='newCategory'>
+        <button data-ng-click="category.add(newCategory)">Incluir</button>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="category in category.categories">
+                    <td>Nome: </td>
+                    <td>{{ category }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.7/angular.js"></script>
+    <script>    
+        angular.module("category", [])
+            .controller("categoryController", categoryController);
+
+        function categoryController() {
+            let scope = this;
+            scope.title = "Cadastrar categorias";
+            scope.categories = ['Casa', 'Trabalho', 'Faculdade'];
+
+            scope.add = (newCategory) => {
+                scope.categories.push(angular.copy(newCategory));
+
+            };
+        }
+
+    </script>
+</body>
+
+</html>

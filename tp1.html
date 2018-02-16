@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+</head>
+
+<body ng-app="home">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.7/angular.js"></script>
+
+    <nav>
+        <ul>
+            <a href="cadastrar-categoria.html">
+                <li>Cadastrar Categoria</li>
+            </a>
+            <a href="cadastrar-tarefa.html">
+                <li>Cadastrar Tarefa</li>
+            </a>
+            <a href="categorias.html">
+                <li>Ver por categoria</li>
+            </a>
+        </ul>
+    </nav>
+
+    <div ng-controller="HomeController as home">
+        <p>Tarefas pendentes</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tarefa Realizada</th>
+                    <th>Tarefa</th>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat='tarefa in home.tarefas' data-ng-show='tarefa.feito == false'>
+                    <td>{{ tarefa.feito }}</td>
+                    <td>{{ tarefa.nome }}</td>
+                    <td>{{ tarefa.categoria}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <p>Tarefas Concluídas</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tarefa Realizada</th>
+                    <th>Tarefa</th>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat='tarefa in home.tarefas' data-ng-show='tarefa.feito == true'>
+                    <td>{{ tarefa.feito }}</td>
+                    <td>{{ tarefa.nome }}</td>
+                    <td>{{ tarefa.categoria}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    angular.module("home", [])
+        .controller("HomeController", homeController)
+        .filter("concluidas", () => {
+
+            // return (tarefa) => {
+            //     let concluidas = []
+
+            //     if (tarefa.feito == false) {
+            //         concluidas.push(tarefa)
+            //     }
+
+            //     return concluidas;
+            // }
+
+        })
+        .controller("categoryController", categoryController);
+
+    function homeController() {
+        let scope = this;
+        scope.tarefas = [
+            { nome: 'Varrer o quarto', categoria: 'Casa', feito: false },
+            { nome: 'Lavar a louça', categoria: 'Casa', feito: true },
+            { nome: 'Lavar as roupas', categoria: 'Casa', feito: false },
+            { nome: 'Consertar a porta', categoria: 'Casa', feito: false },
+            { nome: 'Terminar o relatório', categoria: 'Trabalho', feito: false },
+            { nome: 'Estudar para a próxima reunião', categoria: 'Trabalho', feito: false },
+            { nome: 'Enviar email sobre o problema', categoria: 'Trabalho', feito: false },
+            { nome: 'Levar pó de café', categoria: 'Trabalho', feito: true },
+            { nome: 'Comprar canetas novas', categoria: 'Trabalho', feito: true },
+            { nome: 'Estudar Etapa 1', categoria: 'Faculdade', feito: true },
+            { nome: 'Estudar Etapa 2', categoria: 'Faculdade', feito: true },
+            { nome: 'Estudar Etapa 3', categoria: 'Faculdade', feito: false },
+            { nome: 'Fazer TP1', categoria: 'Faculdade', feito: false }
+        ]
+    }
+
+    function categoryController() {
+        let scope = this;
+
+        scope.categories = ['Casa', 'Trabalho', 'Faculdade'];
+    }
+
+    // homeController["$inject"] = ["$scope"];
+</script>
+
+</html>

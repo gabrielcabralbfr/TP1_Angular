@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 04</title>
+</head>
+
+<body data-ng-controller="ContatoController as Contato">
+    <span data-ng-init="predicado='email'; reverso=true"></span>
+    <h1>{{ Contato.titulo }}</h1>
+
+    <ul>
+        <li data-ng-repeat="contato in Contato.contatos">
+            <span data-ng-repeat="dado in contato">{{ dado }} </span>
+        </li>
+    </ul>
+
+    <table>
+        <thead>
+            <tr>
+                <th data-ng-repeat="(chave, valor) in Contato.contatos[0]">{{ chave }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="contato in Contato.contatos | orderBy:predicado:reverso">
+                <td data-ng-repeat="dado in contato">{{ dado }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+
+    <label for="filtroContato">Filtro: </label>
+    <input type="text" data-ng-model="filtroContato" />
+    <table>
+        <thead>
+            <tr>
+                <th data-ng-repeat="(chave, valor) in Contato.contatos[0]">{{ chave }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="contato in Contato.contatos | filter:filtroContato">
+                <td data-ng-repeat="dado in contato">{{ dado }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+    <script>	
+        angular.module("app", [])
+            .controller("ContatoController", ContatoController);
+
+        function ContatoController() {
+            var vm = this;
+            vm.titulo = "Agenda";
+            vm.contatos = [
+                { nome: "Ana", email: "ana@teste.com", telefone: "98747362" },
+                { nome: "Bela", email: "bela@teste.com" },
+                { nome: "Cissa", email: "cissa@teste.com" },
+                { nome: "Dália", email: "dalia@teste.com", telefone: "986542345" },
+                { nome: "Eva", email: "eva@teste.com" },
+            ];
+        }
+        
+    </script>
+</body>
+
+</html>

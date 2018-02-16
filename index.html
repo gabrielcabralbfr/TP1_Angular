@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-ng-app="MyApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Angular</title>
+</head>
+
+<body data-ng-controller="CompanyController as Company">
+
+    <h1>{{ Company.title }}</h1>
+
+    <input type="text" data-ng-model='filtro'>
+
+    <table>
+        <thead>
+            <tr>
+                <th data-ng-repeat='(chave, valor) in Company.contatos[0]'>
+                    {{chave}}
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            <tr data-ng-repeat='contato in Company.contatos | filter:filtro'>
+                <td data-ng-repeat='valor in contato '>
+                    {{valor}}
+                </td>
+            </tr>
+        </tbody>
+
+        <tfoot></tfoot>
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+    <script>
+
+        angular.module("MyApp", [])
+            .controller("CompanyController", CompanyController)
+
+
+
+        function CompanyController() {
+            let vm = this;
+
+            vm.title = "Filtragem de dados em Angular"
+
+            vm.contatos = [
+                { nome: "Ana", email: "ana@teste.com", telefone: "98747362" },
+                { nome: "Bela", email: "bela@teste.com" },
+                { nome: "Cissa", email: "cissa@teste.com" },
+                { nome: "Dália", email: "dalia@teste.com", telefone: "986542345" },
+                { nome: "Eva", email: "eva@teste.com" },
+            ];
+        }
+    </script>
+
+</body>
+
+</html>

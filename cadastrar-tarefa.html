@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastrar Tarefa</title>
+</head>
+
+<body data-ng-app="task">
+
+    <div class="container" data-ng-controller="taskController as task">
+
+        <h1>{{ task.title }}</h1>
+        <label for="">Digite a categoria a ser incluída: </label>
+        <input type="text" data-ng-model='newTask'>
+        <button data-ng-click="task.add(newTask)">Incluir</button>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="task in task.tasks">
+                    <td>{{ task }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.7/angular.js"></script>
+    <script>    
+        angular.module("task", [])
+            .controller("taskController", taskController);
+
+        function taskController() {
+            let scope = this;
+            scope.title = "Cadastrar Tarefas";
+            scope.tasks = [
+                { nome: 'Varrer o quarto', categoria: 'Casa', feito: false },
+                { nome: 'Lavar a louça', categoria: 'Casa', feito: true },
+                { nome: 'Lavar as roupas', categoria: 'Casa', feito: false },
+                { nome: 'Consertar a porta', categoria: 'Casa', feito: false },
+                { nome: 'Terminar o relatório', categoria: 'Trabalho', feito: false },
+                { nome: 'Estudar para a próxima reunião', categoria: 'Trabalho', feito: false },
+                { nome: 'Enviar email sobre o problema', categoria: 'Trabalho', feito: false },
+                { nome: 'Levar pó de café', categoria: 'Trabalho', feito: true },
+                { nome: 'Comprar canetas novas', categoria: 'Trabalho', feito: true },
+                { nome: 'Estudar Etapa 1', categoria: 'Faculdade', feito: true },
+                { nome: 'Estudar Etapa 2', categoria: 'Faculdade', feito: true },
+                { nome: 'Estudar Etapa 3', categoria: 'Faculdade', feito: false },
+                { nome: 'Fazer TP1', categoria: 'Faculdade', feito: false }
+            ]
+
+            scope.add = (newtask) => {
+                scope.categories.push(angular.copy(newtask));
+
+            };
+        }
+
+    </script>
+</body>
+
+</html>
